@@ -37,7 +37,7 @@ namespace ExpressBase.Desktop
 
             RestSharp.RestRequest request = new RestSharp.RestRequest(sSolutionURL, RestSharp.Method.Get);
             request.AddQueryParameter("username", txtUserName.Text);
-            request.AddQueryParameter("password", string.Concat(txtUserName.Text, txtPassword.Text).ToMD5Hash());
+            request.AddQueryParameter("password", string.Concat(txtPassword.Text, txtUserName.Text).ToMD5Hash());
             request.AddQueryParameter("deviceid", deviceIdBuilder.ToString());
 
             var response = client.Get(request);

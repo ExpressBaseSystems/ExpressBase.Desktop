@@ -20,7 +20,7 @@ namespace ExpressBase.Desktop.Extensions
                     sb.Append(bytes.ToString("X2"));
                 }
 
-                return sb.ToString();
+                return sb.ToString().ToLower();
             }
         }
     }
