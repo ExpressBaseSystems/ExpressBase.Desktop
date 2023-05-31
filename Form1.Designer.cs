@@ -1,6 +1,6 @@
 ﻿namespace ExpressBase.Desktop
 {
-    partial class Form1
+    partial class frmLogin
     {
         /// <summary>
         ///  Required designer variable.
@@ -117,7 +117,7 @@
             label3.TabIndex = 8;
             label3.Text = "Password";
             // 
-            // Form1
+            // frmLogin
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -134,7 +134,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Form1";
+            Name = "frmLogin";
             SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "EXPRESSbase :: Desktop";
