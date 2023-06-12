@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Client</RootNamespace>
+    <AssemblyName>ExpressBase.Desktop</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>false</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>Netsonic</ProductName>
+    <PublisherName>Netsonic Solutions LLC</PublisherName>
+    <SuiteName>Netsonic Client</SuiteName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <DisallowUrlActivation>true</DisallowUrlActivation>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Evaluation|x86'">
+    <OutputPath>bin\x86\Evaluation\</OutputPath>
+    <DefineConstants>DEBUG;Evaluation</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>8E79F2170D847E757F1C2165B67753C8FD19703D</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Client_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DeviceId, Version=6.3.0.0, Culture=neutral, PublicKeyToken=f755c371b5c59c52, processorArchitecture=MSIL">
+      <HintPath>..\packages\DeviceId.6.3.0\lib\net40\DeviceId.dll</HintPath>
+    </Reference>
+    <Reference Include="Guifreaks.Common, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b9e40ae01dee0076" />
+    <Reference Include="Guifreaks.Navisuite, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7f6dc13cbca790ea, processorArchitecture=MSIL" />
+    <Reference Include="Interop.zkemkeeper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZKemkeeper.1.0.2\lib\Interop.zkemkeeper.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=2.1.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Npgsql.2.1.3\lib\net40\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.3.1.0\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2005, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\packages\DockPanelSuite.ThemeVS2005.3.1.0\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2005.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Forms\AddDeviceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddDeviceForm.Designer.cs">
+      <DependentUpon>AddDeviceForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AttendanceDeviceList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AttendanceDeviceList.Designer.cs">
+      <DependentUpon>AttendanceDeviceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DeviceConnectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeviceConnectionForm.Designer.cs">
+      <DependentUpon>DeviceConnectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LoginForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MDIContainerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MDIContainerForm.Designer.cs">
+      <DependentUpon>MDIContainerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Forms\AddDeviceForm.resx">
+      <DependentUpon>AddDeviceForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AttendanceDeviceList.resx">
+      <DependentUpon>AttendanceDeviceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeviceConnectionForm.resx">
+      <DependentUpon>DeviceConnectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MDIContainerForm.resx">
+      <DependentUpon>MDIContainerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="App.Config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Client_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo_void.png" />
+    <None Include="Resources\skype.png" />
+    <None Include="Resources\share_blue.png" />
+    <None Include="Resources\send_email.png" />
+    <None Include="Resources\shortcut.png" />
+    <None Include="Resources\refresh16x16.png" />
+    <None Include="Resources\show_table_row.png" />
+    <None Include="Resources\trash_can1.png" />
+    <None Include="Resources\portable_device.png" />
+    <None Include="Resources\review.png" />
+    <None Include="Resources\stock_lock_open.png" />
+    <None Include="Resources\stock_lock.png" />
+    <None Include="Resources\sum.png" />
+    <None Include="Resources\process1.png" />
+    <None Include="Resources\process.png" />
+    <None Include="Resources\Settings-icon.png" />
+    <None Include="Resources\server_16x16.png" />
+    <None Include="Resources\treeview_22x22.png" />
+    <None Include="Resources\treeview_16x16.png" />
+    <None Include="Resources\report.png" />
+    <None Include="Resources\quicklaunch.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\new.png" />
+    <None Include="Resources\Lock_Close.png" />
+    <None Include="Resources\Lock_Open.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\copy.png" />
+    <None Include="Resources\adduser.png" />
+    <None Include="Resources\archive.png" />
+    <None Include="Resources\calendar.png" />
+    <None Include="Resources\check.png" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\cut.png" />
+    <None Include="Resources\download.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\email.png" />
+    <None Include="Resources\favorites.png" />
+    <None Include="Resources\find.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\help.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\key.png" />
+    <None Include="Resources\log_out.png" />
+    <None Include="Resources\negative.png" />
+    <None Include="Resources\open.png" />
+    <None Include="Resources\paste.png" />
+    <None Include="Resources\filter.png" />
+    <None Include="Resources\1410095126_gantt_chart.png" />
+    <Content Include="Resources\add.ico" />
+    <None Include="Resources\First record.png" />
+    <None Include="Resources\Last recor.png" />
+    <None Include="Resources\Next track.png" />
+    <None Include="Resources\animatedCircle.gif" />
+    <None Include="Resources\globe.png" />
+    <None Include="Resources\minimize.png" />
+    <None Include="Resources\maximize.png" />
+    <None Include="Resources\exit.png" />
+    <None Include="Resources\list_edit.png" />
+    <None Include="Resources\form-icon.png" />
+    <None Include="Resources\form16x16.png" />
+    <None Include="Resources\folder-documents-blue-icon.png" />
+    <None Include="Resources\folder-close-blue-icon.png" />
+    <None Include="Resources\folderopened_yellow.png" />
+    <None Include="Resources\form.png" />
+    <None Include="Resources\calculator.png" />
+    <None Include="Resources\clock.ico" />
+    <None Include="Resources\clock16x16.png" />
+    <None Include="Resources\databases_16x16.png" />
+    <None Include="Resources\keyboard_16x16.png" />
+    <None Include="Resources\lock.png" />
+    <None Include="Resources\backup.png" />
+    <None Include="Resources\cash.png" />
+    <None Include="Resources\forex.png" />
+    <None Include="Resources\ajax-loader.gif" />
+    <None Include="Resources\balance.png" />
+    <None Include="Resources\notify32.png" />
+    <None Include="Resources\lock_unlock.png" />
+    <None Include="Resources\graph_bar.png" />
+    <None Include="Resources\chart_line.png" />
+    <None Include="Resources\payment.png" />
+    <None Include="Resources\masterdata.png" />
+    <None Include="Resources\attendance.png" />
+    <None Include="Resources\buildings.png" />
+    <None Include="Resources\connect.png" />
+    <None Include="Resources\not_connected_icon.png" />
+    <None Include="Resources\connect_icon.png" />
+    <None Include="Resources\circle_green.png" />
+    <None Include="Resources\circle_red.png" />
+    <None Include="Resources\face-plain-24.png" />
+    <None Include="Resources\card.png" />
+    <None Include="Resources\finger.png" />
+    <None Include="Resources\exclude.png" />
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\hide_table_row.png" />
+    <None Include="Resources\edit16x16.png" />
+    <None Include="Resources\Netsonic_3in.png" />
+    <None Include="Resources\Netsonic_4in.png" />
+    <None Include="Resources\Netsoniclogo36x36.png" />
+    <None Include="Resources\Netsoniclogo16x16.png" />
+    <None Include="Resources\Netsoniclogo24x24.png" />
+    <None Include="Resources\Netsonic_3.5in.png" />
+    <None Include="Resources\google.png" />
+    <None Include="Resources\facebook.png" />
+    <None Include="Resources\clear_cache.png" />
+    <None Include="Resources\Netsoniclogo.ico" />
+    <Content Include="Resources\phxplus.png" />
+    <None Include="Resources\submit.png" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\print.png" />
+    <None Include="Resources\previous.png" />
+    <None Include="Resources\treeview.png" />
+    <None Include="Resources\void.png" />
+    <None Include="Resources\picture.png" />
+    <None Include="Resources\play.png" />
+    <None Include="Resources\positive.png" />
+    <None Include="Resources\presentation.png" />
+    <None Include="Resources\preview.png" />
+    <None Include="Resources\properties.png" />
+    <None Include="Resources\redo.png" />
+    <None Include="Resources\refresh.png" />
+    <None Include="Resources\settings.png" />
+    <None Include="Resources\synchronize.png" />
+    <None Include="Resources\undo.png" />
+    <None Include="Resources\upload.png" />
+    <None Include="Resources\user.png" />
+    <None Include="Resources\zoom_in.png" />
+    <None Include="Resources\zoom_out.png" />
+    <None Include="Resources\server.png" />
+    <None Include="Resources\Previous record.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Resources\phxplus.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

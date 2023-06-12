@@ -1,25 +1,50 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.6.33723.286
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressBase.Desktop", "ExpressBase.Desktop.csproj", "{785AC928-4A02-473F-9BAD-1707EDB12834}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B2A2E704-5199-44E4-A734-FDFFF681CAD9}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressBase.Desktop", "Client\ExpressBase.Desktop.csproj", "{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Evaluation|Any CPU = Evaluation|Any CPU
+		Evaluation|Mixed Platforms = Evaluation|Mixed Platforms
+		Evaluation|x86 = Evaluation|x86
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{785AC928-4A02-473F-9BAD-1707EDB12834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{785AC928-4A02-473F-9BAD-1707EDB12834}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{785AC928-4A02-473F-9BAD-1707EDB12834}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{785AC928-4A02-473F-9BAD-1707EDB12834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Debug|x86.ActiveCfg = Debug|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Debug|x86.Build.0 = Debug|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Evaluation|Any CPU.ActiveCfg = Evaluation|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Evaluation|Mixed Platforms.ActiveCfg = Evaluation|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Evaluation|Mixed Platforms.Build.0 = Evaluation|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Evaluation|x86.ActiveCfg = Evaluation|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Evaluation|x86.Build.0 = Evaluation|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Release|Any CPU.ActiveCfg = Release|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Release|Mixed Platforms.Build.0 = Release|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Release|x86.ActiveCfg = Release|x86
+		{D29470AA-E6CC-467E-A29B-3E6A9E9080DB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {80F5A798-1A09-43A0-8588-29D2CCF61B3E}
+		SolutionGuid = {B75BAB08-8313-4F15-BC24-595748876242}
 	EndGlobalSection
 EndGlobal
