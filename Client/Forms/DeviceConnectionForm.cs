@@ -629,7 +629,7 @@ namespace Client.Forms.PayRoll
                 {
                     //DBHelper.Instance.ExecuteNonQuery(WhichDatabase.CONFIG, _sb.ToString());
 
-                    if (axCZKEM1.clearClearGLog(iMachineNumber))
+                    if (axCZKEM1.ClearGLog(iMachineNumber))
                         axCZKEM1.RefreshData(iMachineNumber);//the data in the device should be refreshed
                     else
                     {

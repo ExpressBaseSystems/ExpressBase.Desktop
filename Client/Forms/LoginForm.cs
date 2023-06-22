@@ -130,7 +130,7 @@ namespace Client
                 //options = new RestClientOptions($"{sSolutionURL}/api/get_zkteco_attendance_device_list");
                 client = new RestClient($"{SolutionURL}");
 
-                RestSharp.RestRequest request2 = new RestSharp.RestRequest($"api/get_zkteco_attendance_device_list", Method.GET);
+                RestSharp.RestRequest request2 = new RestSharp.RestRequest($"api/get_attendance_device_list", Method.GET);
                 request2.AddHeader("bToken", bToken);
                 request2.AddHeader("rToken", rToken);
 
