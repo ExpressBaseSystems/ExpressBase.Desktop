@@ -18,7 +18,6 @@ Thumbs.db
 *.cache
 *.ilk
 *.log
-*.dll
 *.pdb
 [Rr]eferences*/
 [Pp]ackages*/
