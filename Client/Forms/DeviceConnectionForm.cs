@@ -629,9 +629,10 @@ namespace Client.Forms.PayRoll
                 {
                     //DBHelper.Instance.ExecuteNonQuery(WhichDatabase.CONFIG, _sb.ToString());
 
-                    if (axCZKEM1.ClearGLog(iMachineNumber))
-                        axCZKEM1.RefreshData(iMachineNumber);//the data in the device should be refreshed
-                    else
+                    //if (axCZKEM1.ClearGLog(iMachineNumber))
+                    //    axCZKEM1.RefreshData(iMachineNumber);//the data in the device should be refreshed
+                    //else
+                    if (!axCZKEM1.RefreshData(iMachineNumber))
                     {
                         axCZKEM1.GetLastError(ref idwErrorCode);
                         MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "PHX+ Error");
