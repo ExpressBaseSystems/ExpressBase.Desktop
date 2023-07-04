@@ -561,6 +561,7 @@ namespace Client.Forms.PayRoll
                 if (axCZKEM1.ReadGeneralLogData(iMachineNumber)) //read all punch records
                 {
                     string sdwEnrollNumber = string.Empty;
+                    List<ListViewItem> _itemcol = new List<ListViewItem>();
 
                     lvLogs.SuspendLayout();
 
@@ -568,7 +569,7 @@ namespace Client.Forms.PayRoll
                                 out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode)) //get punch records from the memory
                     {
                         bw.ReportProgress(iGLCount);
-                        UpdateListViewlvLogs(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode);
+                        _itemcol.Add(this.GetListViewItem(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode));
 
                         string s_punchTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond);
 
@@ -583,6 +584,7 @@ namespace Client.Forms.PayRoll
                             _json.Clear();
                             SEPARATOR = string.Empty;
 
+                            this.UpdateListViewlvLogs2(_itemcol);
                             this.PushGLDate2Eb(jsonToSend);
                         }
 
@@ -595,6 +597,7 @@ namespace Client.Forms.PayRoll
                         _json.Clear();
                         SEPARATOR = string.Empty;
 
+                        this.UpdateListViewlvLogs2(_itemcol);
                         this.PushGLDate2Eb(jsonToSend);
                     }
                         
@@ -641,22 +644,31 @@ namespace Client.Forms.PayRoll
             bw.RunWorkerAsync();
         }
 
-        delegate void UpdateListViewlvLogsCallback(int idx, dynamic sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode);
-        private void UpdateListViewlvLogs(int idx, dynamic sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode)
+        private ListViewItem GetListViewItem(int idx, dynamic sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode)
+        {
+            ListViewItem _item = new ListViewItem();
+            _item.Text = idx.ToString();
+            _item.SubItems.Add(sUserID);
+            _item.SubItems.Add(idwVerifyMode.ToString());
+            _item.SubItems.Add(idwInOutMode.ToString());
+            _item.SubItems.Add(idwYear.ToString() + "-" + idwMonth.ToString() + "-" + idwDay.ToString() + " " + idwHour.ToString() + ":" + idwMinute.ToString() + ":" + idwSecond.ToString());
+            _item.SubItems.Add(idwWorkcode.ToString());
+
+            return _item;
+        }
+
+        delegate void UpdateListViewlvLogsCallback2(List<ListViewItem> collection);
+        private void UpdateListViewlvLogs2(List<ListViewItem> collection)
         {
             if (lvLogs.InvokeRequired)
             {
-                UpdateListViewlvLogsCallback d = new UpdateListViewlvLogsCallback(UpdateListViewlvLogs);
-                this.Invoke(d, new object[] { idx, sUserID, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode });
+                UpdateListViewlvLogsCallback2 d = new UpdateListViewlvLogsCallback2(UpdateListViewlvLogs2);
+                this.Invoke(d, new object[] { collection });
             }
             else
             {
-                lvLogs.Items.Add(idx.ToString());
-                lvLogs.Items[idx].SubItems.Add(sUserID);
-                lvLogs.Items[idx].SubItems.Add(idwVerifyMode.ToString());
-                lvLogs.Items[idx].SubItems.Add(idwInOutMode.ToString());
-                lvLogs.Items[idx].SubItems.Add(idwYear.ToString() + "-" + idwMonth.ToString() + "-" + idwDay.ToString() + " " + idwHour.ToString() + ":" + idwMinute.ToString() + ":" + idwSecond.ToString());
-                lvLogs.Items[idx].SubItems.Add(idwWorkcode.ToString());
+                lvLogs.Items.AddRange(collection.ToArray());
+                collection.Clear();
             }
         }
 
