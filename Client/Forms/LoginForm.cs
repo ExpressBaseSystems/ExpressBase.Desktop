@@ -127,7 +127,6 @@ namespace Client
             if (!string.IsNullOrEmpty(rToken) && !string.IsNullOrEmpty(bToken))
             {
                 //this.Hide();
-                //options = new RestClientOptions($"{sSolutionURL}/api/get_zkteco_attendance_device_list");
                 client = new RestClient($"{SolutionURL}");
 
                 RestSharp.RestRequest request2 = new RestSharp.RestRequest($"api/get_attendance_device_list", Method.GET);
@@ -239,6 +238,8 @@ namespace Client
         public string LastSyncTs { get; set; }
 
         public string CommKey { get; set; }
+
+        public string CommKeyType { get; set; }
 
         public string MacAddress { get; set; }
     }

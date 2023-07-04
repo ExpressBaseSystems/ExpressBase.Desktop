@@ -10,6 +10,9 @@ namespace Client
     {
         private const string MESSAGE_CAPTION = "EXPRESSbase";
 
+        public const string USERID_NUMBER = "number";
+        public const string USERID_TEXT = "text";
+
         internal static void MessageError(string message)
         {
             MessageBox.Show(message, MESSAGE_CAPTION, MessageBoxButtons.OK, MessageBoxIcon.Error);

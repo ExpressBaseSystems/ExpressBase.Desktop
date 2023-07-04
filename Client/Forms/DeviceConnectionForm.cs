@@ -523,8 +523,7 @@ namespace Client.Forms.PayRoll
         {
             MDIContainerForm __mdiContainerForm = this.DockPanel.Parent as MDIContainerForm;
 
-            string jsonToSend2 = $@"{{ punchRecords: [{jsonToSend}], deviceId: '', locationId: 1}}";
-
+            string jsonToSend2 = $@"{{ punchRecords: [{jsonToSend}], deviceId: '{this.ConnectedDeviceInfo.Id}', locationId: {this.ConnectedDeviceInfo.LocationId}}}";
 
             RestClient client = new RestClient($"{__mdiContainerForm.SolutionURL}");
 
@@ -538,14 +537,15 @@ namespace Client.Forms.PayRoll
 
             //dynamic json1 = JsonConvert.DeserializeObject(response2.Content);
             //List<DeviceRecord> deviceList = JsonConvert.DeserializeObject<List<DeviceRecord>>(json1.deviceList.ToString());
-
         }
 
         private void downloadAttendanceLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl2.SelectedTab = tabpAttLogs;
 
-            int idwYear = 0, idwMonth = 0, idwDay = 0, idwHour = 0, idwMinute = 0, idwSecond = 0, iGLCount = 0, iTotalCount = 0, idwVerifyMode = 0, idwInOutMode = 0, idwWorkcode = 0;
+            int idwYear = 0, idwMonth = 0, idwDay = 0, idwHour = 0, idwMinute = 0, idwSecond = 0;
+            int iGLCount = 0, iTotalCount = 0;
+            int idwVerifyMode = 0, idwInOutMode = 0, idwWorkcode = 0;
             int uid = 999999999;
 
             string SEPARATOR = string.Empty;
@@ -558,39 +558,26 @@ namespace Client.Forms.PayRoll
 
             bw.DoWork += delegate
             {
-                if (axCZKEM1.ReadGeneralLogData(iMachineNumber))//read all the attendance records to the memory
+                if (axCZKEM1.ReadGeneralLogData(iMachineNumber)) //read all punch records
                 {
-                    //if (!this.ConnectedDeviceInfo.IsUserIDInt)
+                    string sdwEnrollNumber = string.Empty;
+
+                    lvLogs.SuspendLayout();
+
+                    while (axCZKEM1.SSR_GetGeneralLogData(iMachineNumber, out sdwEnrollNumber, out idwVerifyMode,
+                                out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode)) //get punch records from the memory
                     {
-                        lvLogs.SuspendLayout();
+                        bw.ReportProgress(iGLCount);
+                        UpdateListViewlvLogs(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode);
 
-                        string sdwEnrollNumber = string.Empty;
-                        while (axCZKEM1.SSR_GetGeneralLogData(iMachineNumber, out sdwEnrollNumber, out idwVerifyMode,
-                                    out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode))//get records from the memory
-                        {
-                            bw.ReportProgress(iGLCount);
-                            UpdateListViewlvLogs(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode);
+                        string s_punchTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond);
 
-                            string s_punchTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond);
+                        //-- build json string to push to EXPRESSbase API
+                        _json.Append(SEPARATOR);
+                        _json.Append(string.Format("{{userId: {0}, punchTime: '{1}', verifyMode: '{2}', inOutMode: '{3}', workCode: '{4}'}}", sdwEnrollNumber, s_punchTime, idwVerifyMode.ToString(), idwInOutMode.ToString(), idwWorkcode.ToString()));
+                        SEPARATOR = ",";
 
-                            //-- build json string to push to EXPRESSbase API
-                            _json.Append(SEPARATOR);
-                            _json.Append(string.Format("{{userId: {0}, punchTime: '{1}', verifyMode: '{2}', inOutMode: '{3}', workCode: '{4}'}}", sdwEnrollNumber, s_punchTime, idwVerifyMode.ToString(), idwInOutMode.ToString(), idwWorkcode.ToString()));
-                            SEPARATOR = ",";
-
-                            if (iGLCount > 1 && (iGLCount % 1000) == 0)
-                            {
-                                string jsonToSend = _json.ToString();
-                                _json.Clear();
-                                SEPARATOR = string.Empty;
-
-                                this.PushGLDate2Eb(jsonToSend);
-                            }
-
-                            iGLCount++;
-                        }
-
-                        if (_json.Length > 0)
+                        if (iGLCount > 1 && (iGLCount % 1000) == 0)
                         {
                             string jsonToSend = _json.ToString();
                             _json.Clear();
@@ -598,28 +585,20 @@ namespace Client.Forms.PayRoll
 
                             this.PushGLDate2Eb(jsonToSend);
                         }
-                        
-                        lvLogs.ResumeLayout();
+
+                        iGLCount++;
                     }
-                    //else
-                    //{
-                    //    int sdwEnrollNumber = 0;
-                    //    int _machineNumber = 0;
-                    //    int _enrollMachineNumber = 0;
-                    //    while (axCZKEM1.GetGeneralLogData(iMachineNumber, ref _machineNumber, ref sdwEnrollNumber, ref _enrollMachineNumber, ref idwVerifyMode,
-                    //                ref idwInOutMode, ref idwYear, ref idwMonth, ref idwDay, ref idwHour, ref idwMinute))//get records from the memory
-                    //    {
-                    //        bw.ReportProgress(iGLCount);
-                    //        UpdateListViewlvLogs(iGLCount, sdwEnrollNumber.ToString(), idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode);
 
-                    //        if (iGLCount == 0)
-                    //            _sb.Append(string.Format(_sql_tmpl, ConnectedDeviceInfo.MacAddress, sdwEnrollNumber, idwVerifyMode, idwInOutMode, string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond), idwWorkcode, uid));
-                    //        else
-                    //            _sb.Append(',').Append(string.Format(_sql_tmpl, ConnectedDeviceInfo.MacAddress, sdwEnrollNumber, idwVerifyMode, idwInOutMode, string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond), idwWorkcode, uid));
+                    if (_json.Length > 0)
+                    {
+                        string jsonToSend = _json.ToString();
+                        _json.Clear();
+                        SEPARATOR = string.Empty;
 
-                    //        iGLCount++;
-                    //    }
-                    //}
+                        this.PushGLDate2Eb(jsonToSend);
+                    }
+                        
+                    lvLogs.ResumeLayout();
                 }
                 else
                 {
@@ -641,8 +620,6 @@ namespace Client.Forms.PayRoll
             {
                 if (iTotalCount == iGLCount && iTotalCount > 0)
                 {
-                    //DBHelper.Instance.ExecuteNonQuery(WhichDatabase.CONFIG, _sb.ToString());
-
                     //if (axCZKEM1.ClearGLog(iMachineNumber))
                     //    axCZKEM1.RefreshData(iMachineNumber);//the data in the device should be refreshed
                     //else
@@ -664,8 +641,8 @@ namespace Client.Forms.PayRoll
             bw.RunWorkerAsync();
         }
 
-        delegate void UpdateListViewlvLogsCallback(int idx, string sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode);
-        private void UpdateListViewlvLogs(int idx, string sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode)
+        delegate void UpdateListViewlvLogsCallback(int idx, dynamic sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode);
+        private void UpdateListViewlvLogs(int idx, dynamic sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode)
         {
             if (lvLogs.InvokeRequired)
             {
