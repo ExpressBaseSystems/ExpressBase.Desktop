@@ -200,7 +200,7 @@
             this.Name = "AddDeviceForm";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PHX+ :: Add Device";
+            this.Text = "EXPRESSbase :: Add Device";
             ((System.ComponentModel.ISupportInitialize)(this.numPort)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

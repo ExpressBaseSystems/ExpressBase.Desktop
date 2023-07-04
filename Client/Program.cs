@@ -31,7 +31,7 @@ namespace Client
             //}
             //else
             //{
-            //    MessageBox.Show("ERROR 007", "PHX+", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    MessageBox.Show("ERROR 007", "EXPRESSbase", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //    Application.Exit();
             //}
         }

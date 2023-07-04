@@ -394,13 +394,13 @@ namespace Client.Forms.PayRoll
                     //        else
                     //        {
                     //            axCZKEM1.GetLastError(ref idwErrorCode);
-                    //            MessageBox.Show(string.Format("Operation failed for UserID {0}, ErrorCode={1}", sUserID, idwErrorCode.ToString()), "PHX+ Error");
+                    //            MessageBox.Show(string.Format("Operation failed for UserID {0}, ErrorCode={1}", sUserID, idwErrorCode.ToString()), "EXPRESSbase Error");
                     //            continue;
                     //        }
                     //    }
                     //}
                     //else
-                    //    MessageBox.Show("No Face Templates found.", "PHX+ Message");
+                    //    MessageBox.Show("No Face Templates found.", "EXPRESSbase Message");
 
                     //reader.Close();
                 }
@@ -543,7 +543,7 @@ namespace Client.Forms.PayRoll
             {
                 axCZKEM1.GetLastError(ref idwErrorCode);
                 axCZKEM1.EnableDevice(iMachineNumber, true);
-                MessageBox.Show("Operation failed,ErrorCode=" + idwErrorCode.ToString(), "PHX+ Error");
+                MessageBox.Show("Operation failed,ErrorCode=" + idwErrorCode.ToString(), "EXPRESSbase Error");
             }
 
             axCZKEM1.EnableDevice(iMachineNumber, true);
@@ -612,9 +612,9 @@ namespace Client.Forms.PayRoll
                     axCZKEM1.GetLastError(ref idwErrorCode);
 
                     if (idwErrorCode != 0)
-                        MessageBox.Show("Reading data from the terminal failed,ErrorCode: " + idwErrorCode.ToString(), "PHX+ Error");
+                        MessageBox.Show("Reading data from the terminal failed,ErrorCode: " + idwErrorCode.ToString(), "EXPRESSbase Error");
                     else
-                        MessageBox.Show("No Attendence data found to download!", "PHX+ Message");
+                        MessageBox.Show("No Attendence data found to download!", "EXPRESSbase");
                 }
             };
 
@@ -635,7 +635,7 @@ namespace Client.Forms.PayRoll
                     if (!axCZKEM1.RefreshData(iMachineNumber))
                     {
                         axCZKEM1.GetLastError(ref idwErrorCode);
-                        MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "PHX+ Error");
+                        MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "EXPRESSbase Error");
                     }
                 }
 

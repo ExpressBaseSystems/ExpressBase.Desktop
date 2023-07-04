@@ -285,7 +285,7 @@ namespace Client
         private DialogResult PreLogout()
         {
             Mask(false, null);
-            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to logout of PHX+?", "PHX+", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            if (DialogResult.Yes == MessageBox.Show("Are you sure you want to logout?", "EXPRESSbase", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
                 _loginform.Close();
                 return System.Windows.Forms.DialogResult.Yes;
@@ -353,13 +353,6 @@ namespace Client
                 _overlay.Unmask();
             this.Show();
             this.BringToFront();
-        }
-
-        public void ShowShutDownLabel()
-        {
-            if (_overlay == null)
-                _overlay = new LayerWindow();
-            _overlay.ShowShutDownLabel();
         }
 
         internal void Lock()
@@ -505,18 +498,6 @@ namespace Client
                 if (DialogResult.OK == MessageBox.Show(this, this.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Hand))
                     this.MDIContainerForm.Logout(false);
             }
-        }
-
-        public void ShowShutDownLabel()
-        {
-            Label _sh = new Label();
-            _sh.AutoSize = false;
-            _sh.TextAlign = ContentAlignment.MiddleCenter;
-            _sh.Dock = DockStyle.Fill;
-            _sh.Font = new Font("Arial", 30f);
-            _sh.ForeColor = Color.Black;
-            _sh.Text = "Shutting Down PHX+ Server... \r\nPlease Wait!";
-            this.Controls.Add(_sh);
         }
 
         public void Unmask()

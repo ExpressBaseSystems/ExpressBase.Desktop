@@ -8,7 +8,7 @@ namespace Client
 {
     internal class Util
     {
-        private const string MESSAGE_CAPTION = "PHX+";
+        private const string MESSAGE_CAPTION = "EXPRESSbase";
 
         internal static void MessageError(string message)
         {
@@ -31,7 +31,7 @@ namespace Client
         }
     }
 
-    public class PHXFormShortCut
+    public class FormShortCut
     {
         public string XID { get; set; }
         public int ID { get; set; }
