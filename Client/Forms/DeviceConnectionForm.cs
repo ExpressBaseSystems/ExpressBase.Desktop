@@ -87,38 +87,6 @@ namespace Client.Forms.PayRoll
         private DeviceRecord ConnectedDeviceInfo { get; set; }
         private int iMachineNumber = 1; //the serial number of the device.After connecting the device ,this value will be changed.
 
-        //If your fingerprint(or your card) passes the verification,this event will be triggered
-        private void axCZKEM1_OnAttTransactionEx(string sEnrollNumber, int iIsInValid, int iAttState, int iVerifyMethod, int iYear, int iMonth, int iDay, int iHour, int iMinute, int iSecond, int iWorkCode)
-        {
-            //var name_obj = DBHelper.Instance.db_query_scalar_as_object(WhichDatabase.CONFIG, string.Format("SELECT empmaster_name FROM empmaster WHERE id={0}", sEnrollNumber));
-            string name_obj = "__name";
-            //var username = (name_obj != DBNull.Value && name_obj != null) ? name_obj.ToString() : "*** ERROR ***";
-            string username = "sysadmin";
-
-            txtLog.Text += Environment.NewLine + string.Format("User Passes Verification... UserID:{0}, UserName: {1}, Time:{2}", sEnrollNumber, username, string.Format("{0}-{1}-{2} {3}:{4}:{5}", iYear, iMonth, iDay, iHour, iMinute, iSecond));
-            if (username == "*** ERROR ***")
-                txtLog.Text += Environment.NewLine + string.Format("-- FATAL ERROR: User with UserID {0} NOT FOUND! CONTACT YOUR ADMIN.", sEnrollNumber);
-        }
-
-        //When the dismantling machine or duress alarm occurs, trigger this event.
-        private void axCZKEM1_OnAlarm(int iAlarmType, int iEnrollNumber, int iVerified)
-        {
-            txtLog.Text += Environment.NewLine + string.Format("Device Alarm Triggered... AlarmType:{0}, EnrollNumber:{1}, Verified:{2}", iAlarmType, iEnrollNumber, iVerified);
-        }
-
-        //After function GetRTLog() is called ,RealTime Events will be triggered. 
-        //When you are using these two functions, it will request data from the device forwardly.
-        private void rtTimer_Tick(object sender, EventArgs e)
-        {
-            if (axCZKEM1.ReadRTLog(iMachineNumber))
-            {
-                while (axCZKEM1.GetRTLog(iMachineNumber))
-                {
-                    ;
-                }
-            }
-        }
-
         private void PullFaceTemplates()
         {
             string sUserID = string.Empty, sName = string.Empty, sPassword = string.Empty, sTmpData = string.Empty;
@@ -551,15 +519,37 @@ namespace Client.Forms.PayRoll
             return iCnt;
         }
 
+        private void PushGLDate2Eb(string jsonToSend)
+        {
+            MDIContainerForm __mdiContainerForm = this.DockPanel.Parent as MDIContainerForm;
+
+            string jsonToSend2 = $@"{{ punchRecords: [{jsonToSend}], deviceId: '', locationId: 1}}";
+
+
+            RestClient client = new RestClient($"{__mdiContainerForm.SolutionURL}");
+
+            RestSharp.RestRequest request2 = new RestSharp.RestRequest($"api/att_device_save_punch_records", Method.POST);
+            request2.AddHeader("bToken", __mdiContainerForm.BToken);
+            request2.AddHeader("rToken", __mdiContainerForm.RToken);
+            request2.AddParameter("application/json; charset=utf-8", jsonToSend2, ParameterType.RequestBody);
+            request2.RequestFormat = DataFormat.Json;
+
+            var response2 = client.Post(request2);
+
+            //dynamic json1 = JsonConvert.DeserializeObject(response2.Content);
+            //List<DeviceRecord> deviceList = JsonConvert.DeserializeObject<List<DeviceRecord>>(json1.deviceList.ToString());
+
+        }
+
         private void downloadAttendanceLogsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl2.SelectedTab = tabpAttLogs;
 
             int idwYear = 0, idwMonth = 0, idwDay = 0, idwHour = 0, idwMinute = 0, idwSecond = 0, iGLCount = 0, iTotalCount = 0, idwVerifyMode = 0, idwInOutMode = 0, idwWorkcode = 0;
-            StringBuilder _sb = new StringBuilder();
-            _sb.Append("INSERT INTO app_att_deviceattlogs (machineno, userid, verifymode, inoutmode, punched_at, workcode, sys_submitter_uid, sys_submitted_ts) VALUES ");
             int uid = 999999999;
-            string _sql_tmpl = "('{0}',{1},{2},{3},'{4}',{5},{6},now())";
+
+            string SEPARATOR = string.Empty;
+            StringBuilder _json = new StringBuilder();
 
             iTotalCount = GetDeviceStatusHelper(6);
 
@@ -572,6 +562,8 @@ namespace Client.Forms.PayRoll
                 {
                     //if (!this.ConnectedDeviceInfo.IsUserIDInt)
                     {
+                        lvLogs.SuspendLayout();
+
                         string sdwEnrollNumber = string.Empty;
                         while (axCZKEM1.SSR_GetGeneralLogData(iMachineNumber, out sdwEnrollNumber, out idwVerifyMode,
                                     out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode))//get records from the memory
@@ -579,13 +571,35 @@ namespace Client.Forms.PayRoll
                             bw.ReportProgress(iGLCount);
                             UpdateListViewlvLogs(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode);
 
-                            if (iGLCount == 0)
-                                _sb.Append(string.Format(_sql_tmpl, ConnectedDeviceInfo.MacAddress, sdwEnrollNumber, idwVerifyMode, idwInOutMode, string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond), idwWorkcode, uid));
-                            else
-                                _sb.Append(',').Append(string.Format(_sql_tmpl, ConnectedDeviceInfo.MacAddress, sdwEnrollNumber, idwVerifyMode, idwInOutMode, string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond), idwWorkcode, uid));
+                            string s_punchTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond);
+
+                            //-- build json string to push to EXPRESSbase API
+                            _json.Append(SEPARATOR);
+                            _json.Append(string.Format("{{userId: {0}, punchTime: '{1}', verifyMode: '{2}', inOutMode: '{3}', workCode: '{4}'}}", sdwEnrollNumber, s_punchTime, idwVerifyMode.ToString(), idwInOutMode.ToString(), idwWorkcode.ToString()));
+                            SEPARATOR = ",";
+
+                            if (iGLCount > 1 && (iGLCount % 1000) == 0)
+                            {
+                                string jsonToSend = _json.ToString();
+                                _json.Clear();
+                                SEPARATOR = string.Empty;
+
+                                this.PushGLDate2Eb(jsonToSend);
+                            }
 
                             iGLCount++;
                         }
+
+                        if (_json.Length > 0)
+                        {
+                            string jsonToSend = _json.ToString();
+                            _json.Clear();
+                            SEPARATOR = string.Empty;
+
+                            this.PushGLDate2Eb(jsonToSend);
+                        }
+                        
+                        lvLogs.ResumeLayout();
                     }
                     //else
                     //{
@@ -865,26 +879,6 @@ namespace Client.Forms.PayRoll
             {
                 dgvUsers.Rows.Add(_objarr);
             }
-        }
-
-        private void btnDevice_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblIPAddress_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblUserCount_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblMacAddress_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)

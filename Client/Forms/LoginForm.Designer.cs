@@ -104,7 +104,6 @@
             this.txtSolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSolution.Location = new System.Drawing.Point(115, 52);
             this.txtSolution.Name = "txtSolution";
-            this.txtSolution.ReadOnly = true;
             this.txtSolution.Size = new System.Drawing.Size(411, 22);
             this.txtSolution.TabIndex = 20;
             this.txtSolution.TabStop = false;

@@ -30,12 +30,4 @@ namespace Client
             return MessageBox.Show(message, MESSAGE_CAPTION, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
     }
-
-    public class FormShortCut
-    {
-        public string XID { get; set; }
-        public int ID { get; set; }
-        public int FormsID { get; set; }
-        public int VersionID { get; set; }
-    }
 }
