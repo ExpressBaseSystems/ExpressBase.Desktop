@@ -69,7 +69,7 @@
             // lblCompany
             // 
             this.lblCompany.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.lblCompany.Font = new System.Drawing.Font("Arial Narrow", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCompany.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCompany.ForeColor = System.Drawing.Color.Navy;
             this.lblCompany.Name = "lblCompany";
             this.lblCompany.Size = new System.Drawing.Size(0, 22);
@@ -112,12 +112,7 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tssl_DBServer,
-            this.lblDatabase,
-            this.tsStatusUserName,
-            this.statusDate,
             this.pbBusy,
-            this.tsslblVersion,
             this.lblKeyboard,
             this.lblCapsLock,
             this.lblNumLock,

@@ -21,9 +21,6 @@ namespace Client.Forms.PayRoll
 
             this.ConnectedDeviceInfo = deviceInfo;
 
-            btnUpload.Visible = true;
-            btnUpload.Visible = true;
-
             Load += delegate
             {
                 dgvUsers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -421,8 +418,6 @@ namespace Client.Forms.PayRoll
                 btnColor.ToolTipText = "Connected";
                 lblDeviceName.Text = string.Format("{0} ({1})", ConnectedDeviceInfo.DeviceName, ConnectedDeviceInfo.Ip);
                 tabControl2.Enabled = true;
-                btnUpload.Enabled = true;
-                btnDownload.Enabled = true;
 
                 this.RefreshDashboardInfo();
             }
@@ -442,34 +437,6 @@ namespace Client.Forms.PayRoll
             lblIPAddress.Text = ConnectedDeviceInfo.Ip;
             lblMacAddress.Text = GetMacAddress();
         }
-
-        // Disconnect
-        //private void item2_Click(object sender, EventArgs e)
-        //{
-        //    var deviceInfo = (sender as ToolStripMenuItem).Tag as DeviceInfo;
-        //    if (deviceInfo.ID == ConnectedDeviceInfo.ID)
-        //    {
-        //        Cursor = Cursors.WaitCursor;
-        //        axCZKEM1.Disconnect();
-        //        btnConnectStatus.Image = global::Client.Properties.Resources.not_connected_icon;
-        //        btnConnectStatus.ToolTipText = "Disconnected";
-        //        btnColor.Image = global::Client.Properties.Resources.circle_red;
-        //        btnColor.ToolTipText = "Disconnected";
-        //        lblDeviceName.Text = "Device Disconnected";
-        //        tabControl2.Enabled = false;
-        //        btnUpload.Enabled = false;
-        //        btnDownload.Enabled = false;
-        //        btnClear.Enabled = true;
-        //        ConnectedDeviceInfo = null;
-
-        //        lblUserCount.Text = "0";
-        //        lblAttLogs.Text = "0";
-        //        lblIPAddress.Text = "0.0.0.0";
-
-        //        bIsConnected = false;
-        //        Cursor = Cursors.Default;
-        //    }
-        //}
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -539,111 +506,6 @@ namespace Client.Forms.PayRoll
             //List<DeviceRecord> deviceList = JsonConvert.DeserializeObject<List<DeviceRecord>>(json1.deviceList.ToString());
         }
 
-        private void downloadAttendanceLogsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tabControl2.SelectedTab = tabpAttLogs;
-
-            int idwYear = 0, idwMonth = 0, idwDay = 0, idwHour = 0, idwMinute = 0, idwSecond = 0;
-            int iGLCount = 0, iTotalCount = 0;
-            int idwVerifyMode = 0, idwInOutMode = 0, idwWorkcode = 0;
-            int uid = 999999999;
-
-            string SEPARATOR = string.Empty;
-            StringBuilder _json = new StringBuilder();
-
-            iTotalCount = GetDeviceStatusHelper(6);
-
-            var bw = new BackgroundWorker();
-            bw.WorkerReportsProgress = true;
-
-            bw.DoWork += delegate
-            {
-                if (axCZKEM1.ReadGeneralLogData(iMachineNumber)) //read all punch records
-                {
-                    string sdwEnrollNumber = string.Empty;
-                    List<ListViewItem> _itemcol = new List<ListViewItem>();
-
-                    lvLogs.SuspendLayout();
-
-                    while (axCZKEM1.SSR_GetGeneralLogData(iMachineNumber, out sdwEnrollNumber, out idwVerifyMode,
-                                out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode)) //get punch records from the memory
-                    {
-                        bw.ReportProgress(iGLCount);
-                        _itemcol.Add(this.GetListViewItem(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode));
-
-                        string s_punchTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond);
-
-                        //-- build json string to push to EXPRESSbase API
-                        _json.Append(SEPARATOR);
-                        _json.Append(string.Format("{{userId: {0}, punchTime: '{1}', verifyMode: '{2}', inOutMode: '{3}', workCode: '{4}'}}", sdwEnrollNumber, s_punchTime, idwVerifyMode.ToString(), idwInOutMode.ToString(), idwWorkcode.ToString()));
-                        SEPARATOR = ",";
-
-                        if (iGLCount > 1 && (iGLCount % 1000) == 0)
-                        {
-                            string jsonToSend = _json.ToString();
-                            _json.Clear();
-                            SEPARATOR = string.Empty;
-
-                            this.UpdateListViewlvLogs2(_itemcol);
-                            this.PushGLDate2Eb(jsonToSend);
-                        }
-
-                        iGLCount++;
-                    }
-
-                    if (_json.Length > 0)
-                    {
-                        string jsonToSend = _json.ToString();
-                        _json.Clear();
-                        SEPARATOR = string.Empty;
-
-                        this.UpdateListViewlvLogs2(_itemcol);
-                        this.PushGLDate2Eb(jsonToSend);
-                    }
-                        
-                    lvLogs.ResumeLayout();
-                }
-                else
-                {
-                    axCZKEM1.GetLastError(ref idwErrorCode);
-
-                    if (idwErrorCode != 0)
-                        MessageBox.Show("Reading data from the terminal failed,ErrorCode: " + idwErrorCode.ToString(), "EXPRESSbase Error");
-                    else
-                        MessageBox.Show("No Attendence data found to download!", "EXPRESSbase");
-                }
-            };
-
-            bw.ProgressChanged += delegate(object senderp, ProgressChangedEventArgs ep) 
-            {
-                toolStripProgressBar1.Value = ep.ProgressPercentage;
-            };
-
-            bw.RunWorkerCompleted += delegate
-            {
-                if (iTotalCount == iGLCount && iTotalCount > 0)
-                {
-                    //if (axCZKEM1.ClearGLog(iMachineNumber))
-                    //    axCZKEM1.RefreshData(iMachineNumber);//the data in the device should be refreshed
-                    //else
-                    if (!axCZKEM1.RefreshData(iMachineNumber))
-                    {
-                        axCZKEM1.GetLastError(ref idwErrorCode);
-                        MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "EXPRESSbase Error");
-                    }
-                }
-
-                toolStripProgressBar1.Visible = false;
-                axCZKEM1.EnableDevice(iMachineNumber, true);
-            };
-
-            lvLogs.Items.Clear();
-            axCZKEM1.EnableDevice(iMachineNumber, false);
-            toolStripProgressBar1.Visible = true;
-            toolStripProgressBar1.Maximum = iTotalCount;
-            bw.RunWorkerAsync();
-        }
-
         private ListViewItem GetListViewItem(int idx, dynamic sUserID, int idwVerifyMode, int idwInOutMode, int idwYear, int idwMonth, int idwDay, int idwHour, int idwMinute, int idwSecond, int idwWorkcode)
         {
             ListViewItem _item = new ListViewItem();
@@ -688,79 +550,57 @@ namespace Client.Forms.PayRoll
 
         private void pushUserInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            iMachineNumber = 1;
-            Cursor = Cursors.WaitCursor;
+            //iMachineNumber = 1;
+            //Cursor = Cursors.WaitCursor;
 
-            txtLog.Text += Environment.NewLine + "----------- START Push User Info -----------";
+            //txtLog.Text += Environment.NewLine + "----------- START Push User Info -----------";
             
-            int sys_location_id = ConnectedDeviceInfo.LocationId;
+            //int sys_location_id = ConnectedDeviceInfo.LocationId;
 
-            MDIContainerForm __mdiContainerForm = this.DockPanel.Parent as MDIContainerForm;
-            var client = new RestClient($"{__mdiContainerForm.SolutionURL}");
+            //MDIContainerForm __mdiContainerForm = this.DockPanel.Parent as MDIContainerForm;
+            //var client = new RestClient($"{__mdiContainerForm.SolutionURL}");
 
-            RestSharp.RestRequest request2 = new RestSharp.RestRequest($"api/get_employees_list?eb_loc_id={ConnectedDeviceInfo.LocationId}", Method.GET);
-            request2.AddHeader("bToken", __mdiContainerForm.BToken);
-            request2.AddHeader("rToken", __mdiContainerForm.RToken);
+            //RestSharp.RestRequest request2 = new RestSharp.RestRequest($"api/get_employees_list?eb_loc_id={ConnectedDeviceInfo.LocationId}", Method.GET);
+            //request2.AddHeader("bToken", __mdiContainerForm.BToken);
+            //request2.AddHeader("rToken", __mdiContainerForm.RToken);
 
-            var response2 = client.Get(request2);
+            //var response2 = client.Get(request2);
 
-            dynamic json1 = JsonConvert.DeserializeObject(response2.Content);
-            List<UserInfo> userList = JsonConvert.DeserializeObject<List<UserInfo>>(json1.employees.ToString());
+            //dynamic json1 = JsonConvert.DeserializeObject(response2.Content);
+            //List<UserInfo> userList = JsonConvert.DeserializeObject<List<UserInfo>>(json1.employees.ToString());
 
-            if (userList.Count > 0)
-            {
-                this.dataGridView1.DataSource = userList;
-            }
+            //if (userList.Count > 0)
+            //{
+            //    this.dataGridView1.DataSource = userList;
+            //}
             
-            axCZKEM1.EnableDevice(iMachineNumber, false);
-            if (axCZKEM1.BeginBatchUpdate(iMachineNumber, 1))
-            {
-                foreach (UserInfo _row in userList)
-                {
-                    bool result = false;
-                    result = axCZKEM1.SSR_SetUserInfo(iMachineNumber, _row.PunchId1.Trim(), _row.Name.Trim(), _row.PunchId2.Trim(), 0, true);
+            //axCZKEM1.EnableDevice(iMachineNumber, false);
+            //if (axCZKEM1.BeginBatchUpdate(iMachineNumber, 1))
+            //{
+            //    foreach (UserInfo _row in userList)
+            //    {
+            //        bool result = false;
+            //        result = axCZKEM1.SSR_SetUserInfo(iMachineNumber, _row.PunchId1.Trim(), _row.Name.Trim(), _row.PunchId2.Trim(), 0, true);
 
-                    if (result)
-                        txtLog.Text += Environment.NewLine + _row.Name + " pushed to Device.";
-                    else
-                    {
-                        axCZKEM1.GetLastError(ref idwErrorCode);
-                        MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "Error");
-                        Cursor = Cursors.Default;
-                        axCZKEM1.EnableDevice(iMachineNumber, true);
-                        return;
-                    }
-                }
-            }
+            //        if (result)
+            //            txtLog.Text += Environment.NewLine + _row.Name + " pushed to Device.";
+            //        else
+            //        {
+            //            axCZKEM1.GetLastError(ref idwErrorCode);
+            //            MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "Error");
+            //            Cursor = Cursors.Default;
+            //            axCZKEM1.EnableDevice(iMachineNumber, true);
+            //            return;
+            //        }
+            //    }
+            //}
 
-            axCZKEM1.BatchUpdate(iMachineNumber);
-            axCZKEM1.RefreshData(iMachineNumber);
+            //axCZKEM1.BatchUpdate(iMachineNumber);
+            //axCZKEM1.RefreshData(iMachineNumber);
 
-            txtLog.Text += Environment.NewLine + "----------- END Push User Info -----------";
-            axCZKEM1.EnableDevice(iMachineNumber, true);
-            Cursor = Cursors.Default;
-        }
-
-        private void pushFingerPrintTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //FPBatchUpdate();
-        }
-
-        private void pushFaceTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PushFaceTemplates();
-        }
-
-        private void downloadFingerPrintTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Cursor = Cursors.WaitCursor;
-            PullFPTemplates();
-            Cursor = Cursors.Default;
-        }
-
-        private void downloadFaceTemplatesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PullFaceTemplates();
+            //txtLog.Text += Environment.NewLine + "----------- END Push User Info -----------";
+            //axCZKEM1.EnableDevice(iMachineNumber, true);
+            //Cursor = Cursors.Default;
         }
 
         private void showUsersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -875,8 +715,176 @@ namespace Client.Forms.PayRoll
             this.RefreshDashboardInfo();
         }
 
-        private void btnUpload_Click(object sender, EventArgs e)
+        private void btnPullPunchRecords_Click(object sender, EventArgs e)
         {
+            tabControl2.SelectedTab = tabpAttLogs;
+
+            int idwYear = 0, idwMonth = 0, idwDay = 0, idwHour = 0, idwMinute = 0, idwSecond = 0;
+            int iGLCount = 0, iTotalCount = 0;
+            int idwVerifyMode = 0, idwInOutMode = 0, idwWorkcode = 0;
+            int uid = 999999999;
+
+            string SEPARATOR = string.Empty;
+            StringBuilder _json = new StringBuilder();
+
+            iTotalCount = GetDeviceStatusHelper(6);
+
+            var bw = new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
+
+            bw.DoWork += delegate
+            {
+                if (axCZKEM1.ReadGeneralLogData(iMachineNumber)) //read all punch records
+                {
+                    string sdwEnrollNumber = string.Empty;
+                    List<ListViewItem> _itemcol = new List<ListViewItem>();
+
+                    lvLogs.SuspendLayout();
+
+                    while (axCZKEM1.SSR_GetGeneralLogData(iMachineNumber, out sdwEnrollNumber, out idwVerifyMode,
+                                out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode)) //get punch records from the memory
+                    {
+                        bw.ReportProgress(iGLCount);
+                        _itemcol.Add(this.GetListViewItem(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode));
+
+                        string s_punchTime = string.Format("{0}-{1}-{2} {3}:{4}:{5}", idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond);
+
+                        //-- build json string to push to EXPRESSbase API
+                        _json.Append(SEPARATOR);
+                        _json.Append(string.Format("{{userId: {0}, punchTime: '{1}', verifyMode: '{2}', inOutMode: '{3}', workCode: '{4}'}}", sdwEnrollNumber, s_punchTime, idwVerifyMode.ToString(), idwInOutMode.ToString(), idwWorkcode.ToString()));
+                        SEPARATOR = ",";
+
+                        if (iGLCount > 1 && (iGLCount % 1000) == 0)
+                        {
+                            string jsonToSend = _json.ToString();
+                            _json.Clear();
+                            SEPARATOR = string.Empty;
+
+                            this.UpdateListViewlvLogs2(_itemcol);
+                            this.PushGLDate2Eb(jsonToSend);
+                        }
+
+                        iGLCount++;
+                    }
+
+                    if (_json.Length > 0)
+                    {
+                        string jsonToSend = _json.ToString();
+                        _json.Clear();
+                        SEPARATOR = string.Empty;
+
+                        this.UpdateListViewlvLogs2(_itemcol);
+                        this.PushGLDate2Eb(jsonToSend);
+                    }
+
+                    lvLogs.ResumeLayout();
+                }
+                else
+                {
+                    axCZKEM1.GetLastError(ref idwErrorCode);
+
+                    if (idwErrorCode != 0)
+                        MessageBox.Show("Reading data from the terminal failed,ErrorCode: " + idwErrorCode.ToString(), "EXPRESSbase Error");
+                    else
+                        MessageBox.Show("No Attendence data found to download!", "EXPRESSbase");
+                }
+            };
+
+            bw.ProgressChanged += delegate (object senderp, ProgressChangedEventArgs ep)
+            {
+                toolStripProgressBar1.Value = ep.ProgressPercentage;
+            };
+
+            bw.RunWorkerCompleted += delegate
+            {
+                if (iTotalCount == iGLCount && iTotalCount > 0)
+                {
+                    //if (axCZKEM1.ClearGLog(iMachineNumber))
+                    //    axCZKEM1.RefreshData(iMachineNumber);//the data in the device should be refreshed
+                    //else
+                    if (!axCZKEM1.RefreshData(iMachineNumber))
+                    {
+                        axCZKEM1.GetLastError(ref idwErrorCode);
+                        MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "EXPRESSbase Error");
+                    }
+                }
+
+                toolStripProgressBar1.Visible = false;
+                axCZKEM1.EnableDevice(iMachineNumber, true);
+            };
+
+            lvLogs.Items.Clear();
+            axCZKEM1.EnableDevice(iMachineNumber, false);
+            toolStripProgressBar1.Visible = true;
+            toolStripProgressBar1.Maximum = iTotalCount;
+            bw.RunWorkerAsync();
+        }
+
+        private void btnBackupUserInfo_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            PullFPTemplates();
+            PullFaceTemplates();
+            Cursor = Cursors.Default;
+        }
+
+        private void btnPushUsers_Click(object sender, EventArgs e)
+        {
+            iMachineNumber = 1;
+            Cursor = Cursors.WaitCursor;
+
+            txtLog.Text += Environment.NewLine + "----------- START Push User Info -----------";
+
+            int sys_location_id = ConnectedDeviceInfo.LocationId;
+
+            MDIContainerForm __mdiContainerForm = this.DockPanel.Parent as MDIContainerForm;
+            var client = new RestClient($"{__mdiContainerForm.SolutionURL}");
+
+            RestSharp.RestRequest request2 = new RestSharp.RestRequest($"api/get_employees_list?eb_loc_id={ConnectedDeviceInfo.LocationId}", Method.GET);
+            request2.AddHeader("bToken", __mdiContainerForm.BToken);
+            request2.AddHeader("rToken", __mdiContainerForm.RToken);
+
+            var response2 = client.Get(request2);
+
+            dynamic json1 = JsonConvert.DeserializeObject(response2.Content);
+            List<UserInfo> userList = JsonConvert.DeserializeObject<List<UserInfo>>(json1.employees.ToString());
+
+            if (userList.Count > 0)
+            {
+                this.dataGridView1.DataSource = userList;
+            }
+
+            axCZKEM1.EnableDevice(iMachineNumber, false);
+            if (axCZKEM1.BeginBatchUpdate(iMachineNumber, 1))
+            {
+                foreach (UserInfo _row in userList)
+                {
+                    bool result = false;
+                    result = axCZKEM1.SSR_SetUserInfo(iMachineNumber, _row.PunchId1.Trim(), _row.Name.Trim(), _row.PunchId2.Trim(), 0, true);
+
+                    if (result)
+                        txtLog.Text += Environment.NewLine + _row.Name + " pushed to Device.";
+                    else
+                    {
+                        axCZKEM1.GetLastError(ref idwErrorCode);
+                        MessageBox.Show("Operation failed, ErrorCode=" + idwErrorCode.ToString(), "Error");
+                        Cursor = Cursors.Default;
+                        axCZKEM1.EnableDevice(iMachineNumber, true);
+                        return;
+                    }
+                }
+            }
+
+            axCZKEM1.BatchUpdate(iMachineNumber);
+            axCZKEM1.RefreshData(iMachineNumber);
+
+            txtLog.Text += Environment.NewLine + "----------- END Push User Info -----------";
+            axCZKEM1.EnableDevice(iMachineNumber, true);
+
+            //FPBatchUpdate();
+            //PushFaceTemplates();
+
+            Cursor = Cursors.Default;
 
         }
     }
