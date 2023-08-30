@@ -486,7 +486,7 @@ namespace Client.Forms.PayRoll
             return iCnt;
         }
 
-        private void PushGLDate2Eb(string jsonToSend)
+        private void PushGLData2Eb(string jsonToSend)
         {
             MDIContainerForm __mdiContainerForm = this.DockPanel.Parent as MDIContainerForm;
 
@@ -761,7 +761,7 @@ namespace Client.Forms.PayRoll
                             SEPARATOR = string.Empty;
 
                             this.UpdateListViewlvLogs2(_itemcol);
-                            this.PushGLDate2Eb(jsonToSend);
+                            this.PushGLData2Eb(jsonToSend);
                         }
 
                         iGLCount++;
@@ -774,7 +774,7 @@ namespace Client.Forms.PayRoll
                         SEPARATOR = string.Empty;
 
                         this.UpdateListViewlvLogs2(_itemcol);
-                        this.PushGLDate2Eb(jsonToSend);
+                        this.PushGLData2Eb(jsonToSend);
                     }
 
                     lvLogs.ResumeLayout();

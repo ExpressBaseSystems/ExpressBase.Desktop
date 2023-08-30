@@ -195,6 +195,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="SDK-Ver6.3.1.37\32bit\Delete_SDK_x86.bat" />
+    <None Include="SDK-Ver6.3.1.37\32bit\Register_SDK_x86.bat" />
+    <None Include="SDK-Ver6.3.1.37\64bit\Delete_SDK_x64.bat" />
+    <None Include="SDK-Ver6.3.1.37\64bit\Register_SDK_x64.bat" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -219,6 +223,36 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SDK-Ver6.3.1.37\32bit\commpro.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\comms.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\plcommpro.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\plcomms.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\plrscagent.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\plrscomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\pltcpcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\plusbcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\rscagent.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\rscomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\tcpcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\usbcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\usbstd.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\zkemkeeper.dll" />
+    <Content Include="SDK-Ver6.3.1.37\32bit\zkemsdk.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\commpro.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\comms.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\plcommpro.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\plcomms.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\plrscagent.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\plrscomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\pltcpcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\plusbcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\rscagent.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\rscomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\tcpcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\usbcomm.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\usbstd.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\zkemkeeper.dll" />
+    <Content Include="SDK-Ver6.3.1.37\64bit\zkemsdk.dll" />
     <None Include="Resources\undo_void.png" />
     <None Include="Resources\skype.png" />
     <None Include="Resources\share_blue.png" />
