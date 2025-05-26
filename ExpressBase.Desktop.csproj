@@ -1,0 +1,286 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\1410095126_gantt_chart.png" />
+    <None Remove="Resources\add.ico" />
+    <None Remove="Resources\add.png" />
+    <None Remove="Resources\adduser.png" />
+    <None Remove="Resources\ajax-loader.gif" />
+    <None Remove="Resources\animatedCircle.gif" />
+    <None Remove="Resources\archive.png" />
+    <None Remove="Resources\attendance.png" />
+    <None Remove="Resources\backup.png" />
+    <None Remove="Resources\balance.png" />
+    <None Remove="Resources\buildings.png" />
+    <None Remove="Resources\calculator.png" />
+    <None Remove="Resources\calendar.png" />
+    <None Remove="Resources\card.png" />
+    <None Remove="Resources\cash.png" />
+    <None Remove="Resources\chart_line.png" />
+    <None Remove="Resources\check.png" />
+    <None Remove="Resources\circle_green.png" />
+    <None Remove="Resources\circle_red.png" />
+    <None Remove="Resources\clear_cache.png" />
+    <None Remove="Resources\clock.ico" />
+    <None Remove="Resources\clock16x16.png" />
+    <None Remove="Resources\close.png" />
+    <None Remove="Resources\connect.png" />
+    <None Remove="Resources\connect_icon.png" />
+    <None Remove="Resources\copy.png" />
+    <None Remove="Resources\cut.png" />
+    <None Remove="Resources\databases_16x16.png" />
+    <None Remove="Resources\delete.png" />
+    <None Remove="Resources\download.png" />
+    <None Remove="Resources\EB_Logo.png" />
+    <None Remove="Resources\edit.png" />
+    <None Remove="Resources\edit16x16.png" />
+    <None Remove="Resources\email.png" />
+    <None Remove="Resources\excel.png" />
+    <None Remove="Resources\exclude.png" />
+    <None Remove="Resources\exit.png" />
+    <None Remove="Resources\face-plain-24.png" />
+    <None Remove="Resources\facebook.png" />
+    <None Remove="Resources\favorites.png" />
+    <None Remove="Resources\filter.png" />
+    <None Remove="Resources\find.png" />
+    <None Remove="Resources\finger.png" />
+    <None Remove="Resources\First record.png" />
+    <None Remove="Resources\folder-close-blue-icon.png" />
+    <None Remove="Resources\folder-documents-blue-icon.png" />
+    <None Remove="Resources\folder.png" />
+    <None Remove="Resources\folderopened_yellow.png" />
+    <None Remove="Resources\forex.png" />
+    <None Remove="Resources\form-icon.png" />
+    <None Remove="Resources\form.png" />
+    <None Remove="Resources\globe.png" />
+    <None Remove="Resources\google.png" />
+    <None Remove="Resources\graph_bar.png" />
+    <None Remove="Resources\help.png" />
+    <None Remove="Resources\hide_table_row.png" />
+    <None Remove="Resources\information.png" />
+    <None Remove="Resources\key.png" />
+    <None Remove="Resources\keyboard_16x16.png" />
+    <None Remove="Resources\Last recor.png" />
+    <None Remove="Resources\list_edit.png" />
+    <None Remove="Resources\lock.png" />
+    <None Remove="Resources\Lock_Close.png" />
+    <None Remove="Resources\Lock_Open.png" />
+    <None Remove="Resources\lock_unlock.png" />
+    <None Remove="Resources\log_out.png" />
+    <None Remove="Resources\masterdata.png" />
+    <None Remove="Resources\maximize.png" />
+    <None Remove="Resources\minimize.png" />
+    <None Remove="Resources\negative.png" />
+    <None Remove="Resources\Netsoniclogo.ico" />
+    <None Remove="Resources\Netsoniclogo16x16.png" />
+    <None Remove="Resources\Netsoniclogo24x24.png" />
+    <None Remove="Resources\Netsoniclogo36x36.png" />
+    <None Remove="Resources\Netsonic_3.5in.png" />
+    <None Remove="Resources\new.png" />
+    <None Remove="Resources\Next track.png" />
+    <None Remove="Resources\next.png" />
+    <None Remove="Resources\notify32.png" />
+    <None Remove="Resources\not_connected_icon.png" />
+    <None Remove="Resources\open.png" />
+    <None Remove="Resources\paste.png" />
+    <None Remove="Resources\payment.png" />
+    <None Remove="Resources\picture.png" />
+    <None Remove="Resources\play.png" />
+    <None Remove="Resources\portable_device.png" />
+    <None Remove="Resources\positive.png" />
+    <None Remove="Resources\presentation.png" />
+    <None Remove="Resources\preview.png" />
+    <None Remove="Resources\Previous record.png" />
+    <None Remove="Resources\previous.png" />
+    <None Remove="Resources\print.png" />
+    <None Remove="Resources\process.png" />
+    <None Remove="Resources\process1.png" />
+    <None Remove="Resources\properties.png" />
+    <None Remove="Resources\quicklaunch.png" />
+    <None Remove="Resources\redo.png" />
+    <None Remove="Resources\refresh.png" />
+    <None Remove="Resources\refresh16x16.png" />
+    <None Remove="Resources\report.png" />
+    <None Remove="Resources\review.png" />
+    <None Remove="Resources\search.png" />
+    <None Remove="Resources\send_email.png" />
+    <None Remove="Resources\server.png" />
+    <None Remove="Resources\server_16x16.png" />
+    <None Remove="Resources\Settings-icon.png" />
+    <None Remove="Resources\settings.png" />
+    <None Remove="Resources\share_blue.png" />
+    <None Remove="Resources\shortcut.png" />
+    <None Remove="Resources\show_table_row.png" />
+    <None Remove="Resources\skype.png" />
+    <None Remove="Resources\stock_lock.png" />
+    <None Remove="Resources\stock_lock_open.png" />
+    <None Remove="Resources\submit.png" />
+    <None Remove="Resources\sum.png" />
+    <None Remove="Resources\synchronize.png" />
+    <None Remove="Resources\trash_can1.png" />
+    <None Remove="Resources\treeview.png" />
+    <None Remove="Resources\treeview_16x16.png" />
+    <None Remove="Resources\treeview_22x22.png" />
+    <None Remove="Resources\undo.png" />
+    <None Remove="Resources\undo_void.png" />
+    <None Remove="Resources\upload.png" />
+    <None Remove="Resources\user.png" />
+    <None Remove="Resources\void.png" />
+    <None Remove="Resources\zoom_in.png" />
+    <None Remove="Resources\zoom_out.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\1410095126_gantt_chart.png" />
+    <EmbeddedResource Include="Resources\add.ico" />
+    <EmbeddedResource Include="Resources\add.png" />
+    <EmbeddedResource Include="Resources\adduser.png" />
+    <EmbeddedResource Include="Resources\ajax-loader.gif" />
+    <EmbeddedResource Include="Resources\animatedCircle.gif" />
+    <EmbeddedResource Include="Resources\archive.png" />
+    <EmbeddedResource Include="Resources\attendance.png" />
+    <EmbeddedResource Include="Resources\backup.png" />
+    <EmbeddedResource Include="Resources\balance.png" />
+    <EmbeddedResource Include="Resources\buildings.png" />
+    <EmbeddedResource Include="Resources\calculator.png" />
+    <EmbeddedResource Include="Resources\calendar.png" />
+    <EmbeddedResource Include="Resources\card.png" />
+    <EmbeddedResource Include="Resources\cash.png" />
+    <EmbeddedResource Include="Resources\chart_line.png" />
+    <EmbeddedResource Include="Resources\check.png" />
+    <EmbeddedResource Include="Resources\circle_green.png" />
+    <EmbeddedResource Include="Resources\circle_red.png" />
+    <EmbeddedResource Include="Resources\clear_cache.png" />
+    <EmbeddedResource Include="Resources\clock.ico" />
+    <EmbeddedResource Include="Resources\clock16x16.png" />
+    <EmbeddedResource Include="Resources\close.png" />
+    <EmbeddedResource Include="Resources\connect.png" />
+    <EmbeddedResource Include="Resources\connect_icon.png" />
+    <EmbeddedResource Include="Resources\copy.png" />
+    <EmbeddedResource Include="Resources\cut.png" />
+    <EmbeddedResource Include="Resources\databases_16x16.png" />
+    <EmbeddedResource Include="Resources\delete.png" />
+    <EmbeddedResource Include="Resources\download.png" />
+    <EmbeddedResource Include="Resources\EB_Logo.png" />
+    <EmbeddedResource Include="Resources\edit.png" />
+    <EmbeddedResource Include="Resources\edit16x16.png" />
+    <EmbeddedResource Include="Resources\email.png" />
+    <EmbeddedResource Include="Resources\excel.png" />
+    <EmbeddedResource Include="Resources\exclude.png" />
+    <EmbeddedResource Include="Resources\exit.png" />
+    <EmbeddedResource Include="Resources\face-plain-24.png" />
+    <EmbeddedResource Include="Resources\facebook.png" />
+    <EmbeddedResource Include="Resources\favorites.png" />
+    <EmbeddedResource Include="Resources\filter.png" />
+    <EmbeddedResource Include="Resources\find.png" />
+    <EmbeddedResource Include="Resources\finger.png" />
+    <EmbeddedResource Include="Resources\First record.png" />
+    <EmbeddedResource Include="Resources\folder-close-blue-icon.png" />
+    <EmbeddedResource Include="Resources\folder-documents-blue-icon.png" />
+    <EmbeddedResource Include="Resources\folder.png" />
+    <EmbeddedResource Include="Resources\folderopened_yellow.png" />
+    <EmbeddedResource Include="Resources\forex.png" />
+    <EmbeddedResource Include="Resources\form-icon.png" />
+    <EmbeddedResource Include="Resources\form.png" />
+    <EmbeddedResource Include="Resources\globe.png" />
+    <EmbeddedResource Include="Resources\google.png" />
+    <EmbeddedResource Include="Resources\graph_bar.png" />
+    <EmbeddedResource Include="Resources\help.png" />
+    <EmbeddedResource Include="Resources\hide_table_row.png" />
+    <EmbeddedResource Include="Resources\information.png" />
+    <EmbeddedResource Include="Resources\key.png" />
+    <EmbeddedResource Include="Resources\keyboard_16x16.png" />
+    <EmbeddedResource Include="Resources\Last recor.png" />
+    <EmbeddedResource Include="Resources\list_edit.png" />
+    <EmbeddedResource Include="Resources\lock.png" />
+    <EmbeddedResource Include="Resources\Lock_Close.png" />
+    <EmbeddedResource Include="Resources\Lock_Open.png" />
+    <EmbeddedResource Include="Resources\lock_unlock.png" />
+    <EmbeddedResource Include="Resources\log_out.png" />
+    <EmbeddedResource Include="Resources\masterdata.png" />
+    <EmbeddedResource Include="Resources\maximize.png" />
+    <EmbeddedResource Include="Resources\minimize.png" />
+    <EmbeddedResource Include="Resources\negative.png" />
+    <EmbeddedResource Include="Resources\Netsoniclogo.ico" />
+    <EmbeddedResource Include="Resources\Netsoniclogo16x16.png" />
+    <EmbeddedResource Include="Resources\Netsoniclogo24x24.png" />
+    <EmbeddedResource Include="Resources\Netsoniclogo36x36.png" />
+    <EmbeddedResource Include="Resources\Netsonic_3.5in.png" />
+    <EmbeddedResource Include="Resources\new.png" />
+    <EmbeddedResource Include="Resources\Next track.png" />
+    <EmbeddedResource Include="Resources\next.png" />
+    <EmbeddedResource Include="Resources\notify32.png" />
+    <EmbeddedResource Include="Resources\not_connected_icon.png" />
+    <EmbeddedResource Include="Resources\open.png" />
+    <EmbeddedResource Include="Resources\paste.png" />
+    <EmbeddedResource Include="Resources\payment.png" />
+    <EmbeddedResource Include="Resources\picture.png" />
+    <EmbeddedResource Include="Resources\play.png" />
+    <EmbeddedResource Include="Resources\portable_device.png" />
+    <EmbeddedResource Include="Resources\positive.png" />
+    <EmbeddedResource Include="Resources\presentation.png" />
+    <EmbeddedResource Include="Resources\preview.png" />
+    <EmbeddedResource Include="Resources\Previous record.png" />
+    <EmbeddedResource Include="Resources\previous.png" />
+    <EmbeddedResource Include="Resources\print.png" />
+    <EmbeddedResource Include="Resources\process.png" />
+    <EmbeddedResource Include="Resources\process1.png" />
+    <EmbeddedResource Include="Resources\properties.png" />
+    <EmbeddedResource Include="Resources\quicklaunch.png" />
+    <EmbeddedResource Include="Resources\redo.png" />
+    <EmbeddedResource Include="Resources\refresh.png" />
+    <EmbeddedResource Include="Resources\refresh16x16.png" />
+    <EmbeddedResource Include="Resources\report.png" />
+    <EmbeddedResource Include="Resources\review.png" />
+    <EmbeddedResource Include="Resources\search.png" />
+    <EmbeddedResource Include="Resources\send_email.png" />
+    <EmbeddedResource Include="Resources\server.png" />
+    <EmbeddedResource Include="Resources\server_16x16.png" />
+    <EmbeddedResource Include="Resources\Settings-icon.png" />
+    <EmbeddedResource Include="Resources\settings.png" />
+    <EmbeddedResource Include="Resources\share_blue.png" />
+    <EmbeddedResource Include="Resources\shortcut.png" />
+    <EmbeddedResource Include="Resources\show_table_row.png" />
+    <EmbeddedResource Include="Resources\skype.png" />
+    <EmbeddedResource Include="Resources\stock_lock.png" />
+    <EmbeddedResource Include="Resources\stock_lock_open.png" />
+    <EmbeddedResource Include="Resources\submit.png" />
+    <EmbeddedResource Include="Resources\sum.png" />
+    <EmbeddedResource Include="Resources\synchronize.png" />
+    <EmbeddedResource Include="Resources\trash_can1.png" />
+    <EmbeddedResource Include="Resources\treeview.png" />
+    <EmbeddedResource Include="Resources\treeview_16x16.png" />
+    <EmbeddedResource Include="Resources\treeview_22x22.png" />
+    <EmbeddedResource Include="Resources\undo.png" />
+    <EmbeddedResource Include="Resources\undo_void.png" />
+    <EmbeddedResource Include="Resources\upload.png" />
+    <EmbeddedResource Include="Resources\user.png" />
+    <EmbeddedResource Include="Resources\void.png" />
+    <EmbeddedResource Include="Resources\zoom_in.png" />
+    <EmbeddedResource Include="Resources\zoom_out.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DeviceId" Version="6.8.0" />
+    <PackageReference Include="DockPanelSuite" Version="3.1.1" />
+    <PackageReference Include="DockPanelSuite.ThemeVS2005" Version="3.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="ZKemkeeper" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Interop.zkemkeeper">
+      <HintPath>ZKemkeeper.1.0.2\lib\Interop.zkemkeeper.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
