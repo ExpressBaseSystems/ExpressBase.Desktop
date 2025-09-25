@@ -744,7 +744,7 @@ namespace Client.Forms.PayRoll
                     while (axCZKEM1.SSR_GetGeneralLogData(iMachineNumber, out sdwEnrollNumber, out idwVerifyMode,
                                 out idwInOutMode, out idwYear, out idwMonth, out idwDay, out idwHour, out idwMinute, out idwSecond, ref idwWorkcode)) //get punch records from the memory
                     {
-                        if (idwYear > 2024 && idwMonth > 4)
+                        if (idwYear > 2024 && idwMonth > 7)
                         {
                             bw.ReportProgress(iGLCount);
                             _itemcol.Add(this.GetListViewItem(iGLCount, sdwEnrollNumber, idwVerifyMode, idwInOutMode, idwYear, idwMonth, idwDay, idwHour, idwMinute, idwSecond, idwWorkcode));
